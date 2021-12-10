@@ -1,5 +1,6 @@
 package com.github.nithinmuthukumar;
 
+import box2dLight.RayHandler;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -10,20 +11,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.github.nithinmuthukumar.components.*;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class Globals {
-    public static final int PPM = 100;
-    public static final World world = new World(new Vector2(0,-1), false);
-
+    public static final float PPM = 100;
+    public static World world = new World(new Vector2(0,-0.09f*PPM), false);
+    public static final float GROUNDLEVEL = -2.18f;
     public static final SpriteBatch batch = new SpriteBatch();
     public static OrthographicCamera mainCamera;
-    public static final Engine engine = new Engine();
+    public static Engine engine = new Engine();
     public static SpidGame game;
     public static Player player;
+    public static final RayHandler rayHandler= new RayHandler(world);
+    public static Skin skin = new Skin(Gdx.files.internal("neon/skin/neon-ui.json"));
+
 
 
     public static final ComponentMapper<CTransform> cmTransform = ComponentMapper.getFor(CTransform.class);
@@ -31,8 +36,16 @@ public class Globals {
     public static final ComponentMapper<CState> cmState = ComponentMapper.getFor(CState.class);
     public static final ComponentMapper<CAnimation> cmAnimation = ComponentMapper.getFor(CAnimation.class);
     public static final ComponentMapper<CBody> cmBody = ComponentMapper.getFor(CBody.class);
-    public static final ComponentMapper<CVelocity> cmVelocity = ComponentMapper.getFor(CVelocity.class);
+    public static final ComponentMapper<CEnemy> cmEnemy = ComponentMapper.getFor(CEnemy.class);
+    public static final ComponentMapper<CLight> cmLight = ComponentMapper.getFor(CLight.class);
+    public static final ComponentMapper<CRemoval> cmRemoval = ComponentMapper.getFor(CRemoval.class);
+    public static final ComponentMapper<CHealth> cmHealth = ComponentMapper.getFor(CHealth.class);
 
+    public static final ComponentMapper<CWeapon> cmWeapon = ComponentMapper.getFor(CWeapon.class);
+    public static final ComponentMapper<CDecay> cmDecay = ComponentMapper.getFor(CDecay.class);
+    public static final ComponentMapper<CPlayer> cmPlayer = ComponentMapper.getFor(CPlayer.class);
+
+    public static final ComponentMapper<CFollow> cmFollow = ComponentMapper.getFor(CFollow.class);
 
 
 
@@ -96,5 +109,7 @@ public class Globals {
         Arrays.sort(fileHandles, Comparator.comparing(FileHandle::name));
         return fileHandles;
     }
-
+//TODO implement camera shake
+    public static void shakeCamera() {
+    }
 }

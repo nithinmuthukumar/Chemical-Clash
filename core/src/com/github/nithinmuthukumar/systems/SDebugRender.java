@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.github.nithinmuthukumar.Globals;
 
+import static com.github.nithinmuthukumar.Globals.PPM;
 import static com.github.nithinmuthukumar.Globals.mainCamera;
 
 public class SDebugRender extends IteratingSystem {
@@ -26,10 +27,13 @@ public class SDebugRender extends IteratingSystem {
     private Matrix4 screenView;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private Array<Color> colors;
+    private Matrix4 debugMatrix;
 
     public SDebugRender(int priority) {
 
+
         super(Family.all().get(), priority);
+
         colors=new Array<Color>();
         //colors used to draw the tiled map collision
         colors.add(new Color(0,0,0,0));
@@ -50,9 +54,12 @@ public class SDebugRender extends IteratingSystem {
     public void update(float deltaTime) {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        debugMatrix = new Matrix4(mainCamera.combined);
+        debugMatrix.scale(PPM,PPM,PPM);
+
         shapeRenderer.setProjectionMatrix(mainCamera.combined);
         if (debug)
-            debugRenderer.render(Globals.world, mainCamera.combined);
+            debugRenderer.render(Globals.world, debugMatrix);
 
 //        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 //        //draws the tiles so that they can be seen

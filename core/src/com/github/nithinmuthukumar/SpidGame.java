@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.github.nithinmuthukumar.screens.LevelSelect;
 import com.github.nithinmuthukumar.screens.Play;
 
 import static com.github.nithinmuthukumar.Globals.batch;
@@ -19,7 +20,7 @@ public class SpidGame extends Game {
 		Gdx.input.setCatchKey(Input.Keys.SPACE, true);
 		Globals.game = this;
 		Globals.mainCamera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		setScreen(new Play());
+		setScreen(new LevelSelect());
 	}
 
 	@Override
